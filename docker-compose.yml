@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres
+    container_name: digitalwallet-db
+    environment:
+      POSTGRES_DB: digitalwallet
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: src/DigitalWallet.API/Dockerfile
+    container_name: digitalwallet-api
+    environment:
+      - ConnectionStrings__Default=Host=postgres;Port=5432;Database=digitalwallet;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - Jwt__Key=${JWT_KEY}
+      - Jwt__Issuer=${JWT_ISSUER}
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
