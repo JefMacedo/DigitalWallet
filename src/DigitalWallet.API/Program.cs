@@ -1,11 +1,19 @@
+using DigitalWallet.Application.DTOs;
 using DigitalWallet.Application.Interfaces;
+using DigitalWallet.Application.Validators;
+using DigitalWallet.Infrastructure;
 using DigitalWallet.Infrastructure.Security;
 using DigitalWallet.Persistence.Context;
+using DigitalWallet.Persistence.Repositories;
+using DigitalWallet.API.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,9 +88,30 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
+// TO-DO ao implementar Skins.File ajustar o arquivo serilog.json para suportar a escrita em arquivos também
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    //.WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog((context, services, config) =>
+{
+    config.ReadFrom.Configuration(new ConfigurationBuilder()
+        .AddJsonFile("serilog.json")
+        .Build());
+});
 
 // App Services
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
 
 // CORS liberando para desenvolvimento
 builder.Services.AddCors(options =>
@@ -97,7 +126,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+
 var app = builder.Build();
+
+// Global Exception Middleware
+app.UseGlobalExceptionHandling();
 
 app.UseCors("DevPolicy");
 
