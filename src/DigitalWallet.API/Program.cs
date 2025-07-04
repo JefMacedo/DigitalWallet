@@ -1,6 +1,12 @@
+using DigitalWallet.Application.DTOs;
 using DigitalWallet.Application.Interfaces;
+using DigitalWallet.Application.Validators;
+using DigitalWallet.Infrastructure;
 using DigitalWallet.Infrastructure.Security;
 using DigitalWallet.Persistence.Context;
+using DigitalWallet.Persistence.Repositories;
+using DigitalWallet.API.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -83,6 +89,12 @@ builder.Services.AddSwaggerGen(opt =>
 
 // App Services
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
 
 // CORS liberando para desenvolvimento
 builder.Services.AddCors(options =>
@@ -98,6 +110,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 var app = builder.Build();
+
+// Global Exception Middleware
+app.UseGlobalExceptionHandling();
 
 app.UseCors("DevPolicy");
 
