@@ -29,8 +29,7 @@ jobs:
         run: dotnet format --verify-no-changes
 
       - name: Rodar testes com logger
-        run: dotnet test --no-restore --verbosity normal \
-          --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test --no-restore --verbosity normal --logger "trx;LogFileName=test_results.trx"
 
       - name: Upload resultados de testes
         uses: actions/upload-artifact@v4
