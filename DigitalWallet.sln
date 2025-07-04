@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalWallet.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalWallet.Persistence", "src\DigitalWallet.Persistence\DigitalWallet.Persistence.csproj", "{AE7BEBD8-ED56-4C53-A342-819A760B15A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalWallet.Tests", "tests\DigitalWallet.Tests\DigitalWallet.Tests.csproj", "{13C106F2-9B02-4895-8B27-B9DCD7C1D213}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +89,18 @@ Global
 		{AE7BEBD8-ED56-4C53-A342-819A760B15A5}.Release|x64.Build.0 = Release|Any CPU
 		{AE7BEBD8-ED56-4C53-A342-819A760B15A5}.Release|x86.ActiveCfg = Release|Any CPU
 		{AE7BEBD8-ED56-4C53-A342-819A760B15A5}.Release|x86.Build.0 = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|x64.Build.0 = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Debug|x86.Build.0 = Debug|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|x64.ActiveCfg = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|x64.Build.0 = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|x86.ActiveCfg = Release|Any CPU
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +111,9 @@ Global
 		{2D76C38E-0AAF-4355-B836-8036FF588050} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{98FCCAFA-A1C0-417F-9014-B4E8B71F23D6} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{AE7BEBD8-ED56-4C53-A342-819A760B15A5} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{13C106F2-9B02-4895-8B27-B9DCD7C1D213} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CFFDD2D-0DB6-462D-BCBC-32DB09662641}
 	EndGlobalSection
 EndGlobal
