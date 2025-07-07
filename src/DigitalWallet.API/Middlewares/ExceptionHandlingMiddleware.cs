@@ -48,10 +48,31 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             context.Response.ContentType = "application/json";
 
+            _logger.LogWarning(ex, "Acesso não autorizado. Path: {Path}. Messagem: {Msg}", context.Request.Path, ex.Message);
+
             await context.Response.WriteAsJsonAsync(new
             {
                 StatusCode = context.Response.StatusCode,
                 Message = ex.Message
+            });
+        }
+        catch (InvalidOperationException ex)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.ContentType = "application/json";
+
+            var errors = ex.Message;
+
+            _logger.LogWarning("Operação inválida. Path: {Path}, Errors: {@Errors}", context.Request.Path, errors);
+
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            context.Response.ContentType = "application/json";
+
+            await context.Response.WriteAsJsonAsync(new
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = "Erro de validação",
+                Errors = errors
             });
         }
         catch (Exception ex)
