@@ -1,7 +1,5 @@
 ﻿using DigitalWallet.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace DigitalWallet.Persistence.Context;
 
@@ -11,6 +9,7 @@ public class DigitalWalletDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Wallet> Wallets => Set<Wallet>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

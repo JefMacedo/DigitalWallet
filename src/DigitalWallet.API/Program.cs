@@ -14,6 +14,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Serilog;
 using Serilog.Events;
+using DigitalWallet.Application.Services;
+using DigitalWallet.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +114,10 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+builder.Services.AddScoped<WalletService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+builder.Services.AddValidatorsFromAssemblyContaining<DepositRequestValidator>();
 
 // CORS liberando para desenvolvimento
 builder.Services.AddCors(options =>
