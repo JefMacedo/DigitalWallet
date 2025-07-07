@@ -52,7 +52,6 @@ public class WalletService : IWalletService
         await _walletRepository.UpdateAsync(wallet);
 
         _logger.LogInformation("Depósito realizado para o usuário {UserId}: +{Amount}", userId, amount);
-        
         return wallet.Balance;
     }
 
@@ -65,7 +64,6 @@ public class WalletService : IWalletService
         await _walletRepository.UpdateAsync(wallet);
 
         _logger.LogInformation("Saque realizado para o usuário {UserId}: +{Amount}", userId, amount);
-
         return wallet.Balance;
     }
 }
