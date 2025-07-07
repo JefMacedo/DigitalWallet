@@ -1,5 +1,5 @@
 ﻿using DigitalWallet.Application.DTOs;
-using DigitalWallet.Application.Services;
+using DigitalWallet.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,9 +11,9 @@ namespace DigitalWallet.API.Controllers;
 [Authorize]
 public class WalletController : ControllerBase
 {
-    private readonly WalletService _walletService;
+    private readonly IWalletService _walletService;
 
-    public WalletController(WalletService walletService)
+    public WalletController(IWalletService walletService)
     {
         _walletService = walletService;
     }
